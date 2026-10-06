@@ -5,230 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Toma — Guateque Rock</title>
     <meta name="description" content="La Toma es una banda de Rock Fusión colombiana. 15+ años fusionando Rock, Funk, Ska con Salsa, Tango y Cumbia.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        toma: {
-                            red: '#D32F2F',
-                            orange: '#E8A020',
-                            teal: '#1A8A7D',
-                            yellow: '#F5C542',
-                            dark: '#0A0A0A',
-                            darker: '#050505',
-                        }
-                    },
-                    fontFamily: {
-                        'bebas': ['"Bebas Neue"', 'cursive'],
-                        'archivo': ['"Archivo Black"', 'sans-serif'],
-                        'mono': ['"Space Mono"', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* ---- NOISE TEXTURE OVERLAY ---- */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 128px;
-        }
-
-        /* ---- SCROLL REVEAL ---- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* ---- DIAGONAL CUTS ---- */
-        .diagonal-top {
-            clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 100%);
-        }
-        .diagonal-bottom {
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6vw), 0 100%);
-        }
-        .diagonal-both {
-            clip-path: polygon(0 6vw, 100% 0, 100% calc(100% - 6vw), 0 100%);
-        }
-
-        /* ---- HERO PARALLAX ---- */
-        .hero-bg {
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-        @supports (-webkit-touch-callout: none) {
-            .hero-bg { background-attachment: scroll; }
-        }
-
-        /* ---- STAR DECORATIONS ---- */
-        .star {
-            display: inline-block;
-            position: relative;
-        }
-        .star::before {
-            content: '★';
-            color: #D32F2F;
-        }
-        .star-yellow::before { color: #F5C542; }
-        .star-teal::before { color: #1A8A7D; }
-        .star-orange::before { color: #E8A020; }
-
-        /* ---- MARQUEE ---- */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .marquee-track {
-            animation: marquee 20s linear infinite;
-        }
-        .marquee-track:hover {
-            animation-play-state: paused;
-        }
-
-        /* ---- RELEASE CARDS ---- */
-        .release-card {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-        }
-        .release-card:hover {
-            transform: translateY(-12px) rotate(-1deg);
-            box-shadow: 8px 8px 0 #D32F2F, 16px 16px 0 rgba(211,47,47,0.3);
-        }
-
-        /* ---- GALLERY ---- */
-        .gallery-item {
-            overflow: hidden;
-            position: relative;
-        }
-        .gallery-item img {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.08);
-            filter: brightness(1.1) contrast(1.05);
-        }
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 2px solid transparent;
-            transition: border-color 0.3s ease;
-        }
-        .gallery-item:hover::after {
-            border-color: #D32F2F;
-        }
-
-        /* ---- NAV ---- */
-        .nav-glass {
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-        }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #D32F2F;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* ---- SCROLL INDICATOR ---- */
-        @keyframes bounce-slow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(12px); }
-        }
-        .scroll-indicator {
-            animation: bounce-slow 2s ease-in-out infinite;
-        }
-
-        /* ---- PAINT STROKE UNDERLINE ---- */
-        .paint-underline {
-            background-image: linear-gradient(120deg, #D32F2F 0%, #E8A020 100%);
-            background-repeat: no-repeat;
-            background-size: 100% 6px;
-            background-position: 0 88%;
-        }
-
-        /* ---- FLOATING STARS ---- */
-        @keyframes float-star {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(10deg); }
-        }
-        .float-star {
-            animation: float-star 4s ease-in-out infinite;
-        }
-        .float-star-delay { animation-delay: 1.5s; }
-        .float-star-delay-2 { animation-delay: 3s; }
-
-        /* ---- HAMBURGER ---- */
-        .hamburger span {
-            transition: all 0.3s ease;
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-
-        /* ---- SECTION LABEL ---- */
-        .section-label {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            letter-spacing: 0.3em;
-        }
-
-        /* ---- CUSTOM SCROLLBAR ---- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0A0A0A; }
-        ::-webkit-scrollbar-thumb { background: #D32F2F; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #E8A020; }
-    </style>
+    <link rel="preload" href="img/concert-color.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="fonts/bebas-neue-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/space-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/app.css">
 </head>
 <body class="bg-toma-darker text-white overflow-x-hidden">
 
@@ -237,7 +17,7 @@
         <div class="nav-glass bg-toma-darker/70 border-b border-white/5">
             <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 <a href="#hero" class="flex items-center gap-3 group">
-                    <img src="img/logo.webp" alt="La Toma" class="h-10 w-auto transition-transform duration-300 group-hover:rotate-[-5deg]">
+                    <img src="img/logo.webp" alt="La Toma" width="640" height="640" class="h-10 w-auto transition-transform duration-300 group-hover:rotate-[-5deg]">
                 </a>
                 <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-8">
@@ -275,21 +55,22 @@
     <!-- ═══════════════════════ HERO ═══════════════════════ -->
     <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
         <!-- Background Image -->
-        <div class="absolute inset-0 hero-bg" style="background-image: url('img/concert-color.webp');">
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="img/concert-color.webp" alt="" width="1200" height="800" fetchpriority="high" class="parallax-img" data-hero-img>
             <div class="absolute inset-0 bg-gradient-to-b from-toma-darker/60 via-toma-darker/40 to-toma-darker"></div>
         </div>
 
         <!-- Decorative Stars -->
-        <div class="absolute top-[15%] left-[8%] text-4xl float-star opacity-60 star">​</div>
-        <div class="absolute top-[25%] right-[12%] text-2xl float-star-delay opacity-40 star star-yellow">​</div>
-        <div class="absolute bottom-[30%] left-[15%] text-3xl float-star-delay-2 opacity-50 star star-teal">​</div>
-        <div class="absolute bottom-[20%] right-[8%] text-5xl float-star opacity-30 star star-orange">​</div>
+        <div class="absolute top-[15%] left-[8%] hero-star" style="animation-delay: .9s"><div class="text-4xl float-star opacity-60 star">​</div></div>
+        <div class="absolute top-[25%] right-[12%] hero-star" style="animation-delay: 1.05s"><div class="text-2xl float-star float-star-delay opacity-40 star star-yellow">​</div></div>
+        <div class="absolute bottom-[30%] left-[15%] hero-star" style="animation-delay: 1.2s"><div class="text-3xl float-star float-star-delay-2 opacity-50 star star-teal">​</div></div>
+        <div class="absolute bottom-[20%] right-[8%] hero-star" style="animation-delay: 1.35s"><div class="text-5xl float-star opacity-30 star star-orange">​</div></div>
 
         <!-- Content -->
-        <div class="relative z-10 text-center px-6">
-            <img src="img/logo.webp" alt="La Toma - Guateque Rock" class="w-48 sm:w-64 md:w-80 mx-auto mb-6 drop-shadow-[0_0_40px_rgba(211,47,47,0.4)]">
+        <div class="relative z-10 text-center px-6" data-hero-content>
+            <img src="img/logo.webp" alt="La Toma - Guateque Rock" width="640" height="640" fetchpriority="high" class="hero-logo w-48 sm:w-64 md:w-80 mx-auto mb-6 drop-shadow-[0_0_40px_rgba(211,47,47,0.4)]">
             <div class="overflow-hidden">
-                <p class="font-mono text-sm sm:text-base tracking-[0.4em] uppercase text-toma-orange/90 mt-2">Rock · Funk · Ska · Salsa · Cumbia · Tango</p>
+                <p class="hero-rise font-mono text-sm sm:text-base tracking-[0.4em] uppercase text-toma-orange/90 mt-2">Rock · Funk · Ska · Salsa · Cumbia · Tango</p>
             </div>
             <div class="flex items-center justify-center gap-4 mt-8">
                 <span class="w-12 h-px bg-toma-red/60"></span>
@@ -314,7 +95,7 @@
 
     <!-- ═══════════════════════ MARQUEE DIVIDER ═══════════════════════ -->
     <div class="bg-toma-red py-3 overflow-hidden -rotate-1 scale-105 relative z-10">
-        <div class="flex whitespace-nowrap">
+        <div class="flex whitespace-nowrap" data-marquee>
             <div class="marquee-track flex items-center gap-6">
                 <span class="font-bebas text-2xl text-white/90">GUATEQUE ROCK</span>
                 <span class="text-toma-yellow text-lg">★</span>
@@ -360,7 +141,10 @@
                         <!-- Offset border decoration -->
                         <div class="absolute -top-4 -left-4 w-full h-full border-2 border-toma-red/30"></div>
                         <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-toma-teal/20"></div>
-                        <img src="img/hero-band.webp" alt="La Toma - Banda" class="relative z-10 w-full aspect-[4/3] object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                        <div class="relative z-10 aspect-[4/3] overflow-hidden" data-colorize>
+                            <img src="img/hero-band.webp" alt="La Toma - Banda" width="1000" height="682" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover">
+                            <img src="img/hero-band.webp" alt="" width="1000" height="682" loading="lazy" decoding="async" class="bw-copy absolute inset-0 w-full h-full object-cover" data-bw>
+                        </div>
                     </div>
                     <!-- Floating tag -->
                     <div class="absolute -bottom-6 -right-2 md:right-8 z-20 bg-toma-red px-5 py-2 rotate-[-3deg] shadow-lg">
@@ -374,10 +158,10 @@
                         <span class="text-toma-red text-3xl">★</span>
                         <span class="font-mono text-xs tracking-[0.4em] uppercase text-toma-orange/80">La Banda</span>
                     </div>
-                    <h2 class="font-bebas text-5xl sm:text-6xl md:text-7xl leading-[0.9] mb-8">
-                        <span class="text-white">LA FIESTA,</span><br>
-                        <span class="text-toma-red">EL COLOR</span><br>
-                        <span class="text-white">Y LA ALEGRÍA</span>
+                    <h2 class="font-bebas text-5xl sm:text-6xl md:text-7xl leading-[0.9] mb-8" data-lines>
+                        <span class="mask-line"><span class="text-white">LA FIESTA,</span></span>
+                        <span class="mask-line"><span class="text-toma-red">EL COLOR</span></span>
+                        <span class="mask-line"><span class="text-white">Y LA ALEGRÍA</span></span>
                     </h2>
                     <div class="space-y-5 text-white/70 font-mono text-sm leading-relaxed">
                         <p>La Toma es una banda de Rock Fusión, la fusión del Rock, Funk, Ska, con la Música Latina, Salsa, Tango, Cumbia, hizo que en 15 años de carrera, los escenarios más importantes de la industria alternativa, la fiesta, el color y la alegría del pueblo Latinoamericano, sean parte fundamental del concepto artístico de La Toma.</p>
@@ -420,10 +204,11 @@
             <!-- Releases Grid -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 <!-- Release 0: Tejer Caminando -->
-                <div class="reveal" style="transition-delay: 0.05s">
-                    <a href="https://open.spotify.com/album/3FWCSTeieIuQh9ZUZRtzkz?si=ZZmppT0QRl6pGrbXKpaA3Q" class="release-card block group" target="_blank">
-                        <div class="relative overflow-hidden bg-toma-dark">
-                            <img src="img/release-tejer-caminando.webp" alt="Tejer Caminando" class="w-full aspect-square object-cover">
+                <div data-release>
+                    <a href="https://open.spotify.com/album/3FWCSTeieIuQh9ZUZRtzkz?si=ZZmppT0QRl6pGrbXKpaA3Q" class="release-card relative block group" target="_blank">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <div class="relative z-10 overflow-hidden bg-toma-dark">
+                            <img src="img/release-tejer-caminando.webp" alt="Tejer Caminando" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
                             <div class="absolute inset-0 bg-toma-red/0 group-hover:bg-toma-red/20 transition-colors duration-300 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -436,10 +221,11 @@
                 </div>
 
                 <!-- Release 1: El Cumbión -->
-                <div class="reveal" style="transition-delay: 0.1s">
-                    <a href="https://open.spotify.com/album/0pRAjMJfvEexAaOfgzjUJN?si=6XmzTvnORgKkEbX9DqF8yw" class="release-card block group" target="_blank">
-                        <div class="relative overflow-hidden bg-toma-dark">
-                            <img src="img/release-cumbion.webp" alt="El Cumbión" class="w-full aspect-square object-cover">
+                <div data-release>
+                    <a href="https://open.spotify.com/album/0pRAjMJfvEexAaOfgzjUJN?si=6XmzTvnORgKkEbX9DqF8yw" class="release-card relative block group" target="_blank">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <div class="relative z-10 overflow-hidden bg-toma-dark">
+                            <img src="img/release-cumbion.webp" alt="El Cumbión" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
                             <div class="absolute inset-0 bg-toma-teal/0 group-hover:bg-toma-teal/20 transition-colors duration-300 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -452,10 +238,11 @@
                 </div>
 
                 <!-- Release 2: El Champetón -->
-                <div class="reveal" style="transition-delay: 0.2s">
-                    <a href="https://open.spotify.com/album/4oGEK08zEUoPDLXTUs3HD6?si=-D7lXj_aTi25Jlblwwn7jA" class="release-card block group" target="_blank">
-                        <div class="relative overflow-hidden bg-toma-dark">
-                            <img src="img/release-champeton.webp" alt="El Champetón" class="w-full aspect-square object-cover">
+                <div data-release>
+                    <a href="https://open.spotify.com/album/4oGEK08zEUoPDLXTUs3HD6?si=-D7lXj_aTi25Jlblwwn7jA" class="release-card relative block group" target="_blank">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <div class="relative z-10 overflow-hidden bg-toma-dark">
+                            <img src="img/release-champeton.webp" alt="El Champetón" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
                             <div class="absolute inset-0 bg-toma-orange/0 group-hover:bg-toma-orange/20 transition-colors duration-300 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -468,10 +255,11 @@
                 </div>
 
                 <!-- Release 3: Diario de una Cobarde -->
-                <div class="reveal" style="transition-delay: 0.3s">
-                    <a href="https://open.spotify.com/artist/1To9XZOmBJgqfVfUCRK0OI?si=gzlWRkNQQ_qG_oSHeD37xw" class="release-card block group" target="_blank">
-                        <div class="relative overflow-hidden bg-toma-dark">
-                            <img src="img/release-diario.webp" alt="Diario de una Cobarde" class="w-full aspect-square object-cover">
+                <div data-release>
+                    <a href="https://open.spotify.com/artist/1To9XZOmBJgqfVfUCRK0OI?si=gzlWRkNQQ_qG_oSHeD37xw" class="release-card relative block group" target="_blank">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <div class="relative z-10 overflow-hidden bg-toma-dark">
+                            <img src="img/release-diario.webp" alt="Diario de una Cobarde" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
                             <div class="absolute inset-0 bg-toma-red/0 group-hover:bg-toma-red/20 transition-colors duration-300 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -521,7 +309,7 @@
                     <div class="relative aspect-video shadow-[0_0_50px_rgba(26,138,125,0.2)] border border-white/10 group/video overflow-hidden">
                         <a href="https://www.youtube.com/watch?v=oO4Uzw-1nRA&list=PLwIRvqMrUXOTAYo1A1zzdxfaLKiPIs_NZ" target="_blank" class="block w-full h-full relative">
                             <!-- Thumbnail -->
-                            <img src="img/promo-yt-thumb.webp" alt="La Toma - Videos Promocionales" class="w-full h-full object-cover transition-transform duration-700 group-hover/video:scale-110">
+                            <img src="img/promo-yt-thumb.webp" alt="La Toma - Videos Promocionales" width="1000" height="563" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover/video:scale-110">
                             <!-- Play Button Overlay -->
                             <div class="absolute inset-0 flex items-center justify-center bg-toma-darker/20 group-hover/video:bg-toma-red/40 transition-colors duration-300">
                                 <div class="w-20 h-20 flex items-center justify-center rounded-full bg-toma-red text-white shadow-2xl transform group-hover/video:scale-110 transition-transform duration-300">
@@ -562,12 +350,13 @@
 
     <!-- ═══════════════════════ BAND PHOTO BREAK ═══════════════════════ -->
     <section class="relative h-[50vh] md:h-[60vh] overflow-hidden diagonal-both">
-        <div class="absolute inset-0 hero-bg" style="background-image: url('img/band-blue.webp');">
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="img/band-blue.webp" alt="" width="1200" height="801" loading="lazy" decoding="async" class="parallax-img" data-parallax-bg>
             <div class="absolute inset-0 bg-gradient-to-r from-toma-darker/80 via-toma-darker/40 to-toma-darker/80"></div>
         </div>
         <div class="relative z-10 h-full flex items-center justify-center">
             <blockquote class="text-center px-6 max-w-3xl">
-                <p class="font-bebas text-4xl sm:text-5xl md:text-6xl leading-tight">
+                <p class="font-bebas text-4xl sm:text-5xl md:text-6xl leading-tight" data-words>
                     <span class="text-toma-yellow">"</span>Es la música la herramienta para aportarle a un <span class="paint-underline">mundo más igual</span><span class="text-toma-yellow">"</span>
                 </p>
             </blockquote>
@@ -631,37 +420,37 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
                 <!-- Large image -->
                 <div class="reveal md:col-span-7 gallery-item" style="transition-delay: 0.1s">
-                    <img src="img/concert-color.webp" alt="La Toma en concierto - Teatro Metropolitano" class="w-full h-64 md:h-96 object-cover">
+                    <img src="img/concert-color.webp" alt="La Toma en concierto - Teatro Metropolitano" width="1200" height="800" loading="lazy" decoding="async" data-speed="1" class="w-full h-64 md:h-96 object-cover">
                 </div>
                 <!-- Tall image -->
                 <div class="reveal md:col-span-5 gallery-item" style="transition-delay: 0.2s">
-                    <img src="img/concert-bw2.webp" alt="La Toma - público en concierto" class="w-full h-64 md:h-96 object-cover">
+                    <img src="img/concert-bw2.webp" alt="La Toma - público en concierto" width="1200" height="801" loading="lazy" decoding="async" data-speed="1.6" class="w-full h-64 md:h-96 object-cover">
                 </div>
                 <!-- Bottom row -->
                 <div class="reveal md:col-span-5 gallery-item" style="transition-delay: 0.3s">
-                    <img src="img/concert-bw1.webp" alt="La Toma - escenario" class="w-full h-48 md:h-72 object-cover">
+                    <img src="img/concert-bw1.webp" alt="La Toma - escenario" width="1200" height="684" loading="lazy" decoding="async" data-speed="1.3" class="w-full h-48 md:h-72 object-cover">
                 </div>
                 <div class="reveal md:col-span-7 gallery-item" style="transition-delay: 0.4s">
-                    <img src="img/band-foosball.webp" alt="La Toma - detrás de escena" class="w-full h-48 md:h-72 object-cover">
+                    <img src="img/band-foosball.webp" alt="La Toma - detrás de escena" width="1200" height="801" loading="lazy" decoding="async" data-speed="0.8" class="w-full h-48 md:h-72 object-cover">
                 </div>
             </div>
 
             <!-- Venues / highlights -->
             <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 text-center">
                 <div class="border border-white/10 p-6 hover:border-toma-red/40 transition-colors">
-                    <span class="font-bebas text-4xl text-toma-red">15+</span>
+                    <span class="font-bebas text-4xl text-toma-red" data-count="15" data-suffix="+">15+</span>
                     <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">Años</p>
                 </div>
                 <div class="border border-white/10 p-6 hover:border-toma-orange/40 transition-colors">
-                    <span class="font-bebas text-4xl text-toma-orange">500+</span>
+                    <span class="font-bebas text-4xl text-toma-orange" data-count="500" data-suffix="+">500+</span>
                     <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">Conciertos</p>
                 </div>
                 <div class="border border-white/10 p-6 hover:border-toma-teal/40 transition-colors">
-                    <span class="font-bebas text-4xl text-toma-teal">7</span>
+                    <span class="font-bebas text-4xl text-toma-teal" data-count="7" data-suffix="">7</span>
                     <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">Músicos</p>
                 </div>
                 <div class="border border-white/10 p-6 hover:border-toma-yellow/40 transition-colors">
-                    <span class="font-bebas text-4xl text-toma-yellow">3</span>
+                    <span class="font-bebas text-4xl text-toma-yellow" data-count="3" data-suffix="">3</span>
                     <p class="font-mono text-xs text-white/50 mt-1 uppercase tracking-wider">Países</p>
                 </div>
             </div>
@@ -693,7 +482,7 @@
                 <div class="relative group">
                     <div class="absolute -inset-2 bg-gradient-to-br from-toma-red via-toma-orange to-toma-yellow opacity-30 blur-2xl group-hover:opacity-50 transition-opacity"></div>
                     <div class="relative overflow-hidden border border-white/10 group-hover:border-toma-orange/50 transition-colors">
-                        <img src="img/merch-camiseta-18-anos.webp" alt="Camiseta conmemorativa 18 años de música artesanal" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
+                        <img src="img/merch-camiseta-18-anos.webp" alt="Camiseta conmemorativa 18 años de música artesanal" width="1000" height="1251" loading="lazy" decoding="async" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                 </div>
 
@@ -796,7 +585,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <img src="img/logo.webp" alt="La Toma" class="h-8 w-auto opacity-50">
+                    <img src="img/logo.webp" alt="La Toma" width="640" height="640" loading="lazy" decoding="async" class="h-8 w-auto opacity-50">
                     <span class="font-mono text-xs text-white/30">La Toma Music SAS</span>
                 </div>
                 <div class="flex items-center gap-2">
@@ -809,60 +598,9 @@
     </footer>
 
     <!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
-    <script>
-        // Intersection Observer for scroll reveals
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Navbar hide/show on scroll
-        let lastScroll = 0;
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > 100) {
-                navbar.classList.add('bg-toma-darker/90');
-                if (currentScroll > lastScroll && currentScroll > 300) {
-                    navbar.style.transform = 'translateY(-100%)';
-                } else {
-                    navbar.style.transform = 'translateY(0)';
-                }
-            } else {
-                navbar.classList.remove('bg-toma-darker/90');
-                navbar.style.transform = 'translateY(0)';
-            }
-            lastScroll = currentScroll;
-        });
-
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        menuBtn.addEventListener('click', () => {
-            menuBtn.classList.toggle('active');
-            mobileMenu.classList.toggle('opacity-0');
-            mobileMenu.classList.toggle('pointer-events-none');
-        });
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                menuBtn.classList.remove('active');
-                mobileMenu.classList.add('opacity-0');
-                mobileMenu.classList.add('pointer-events-none');
-            });
-        });
-    </script>
+    <script src="js/vendor/gsap.min.js" defer></script>
+    <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+    <script src="js/vendor/SplitText.min.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
